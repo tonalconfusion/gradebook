@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Home Page</h2>
+<p>Welcome back, {{ name }}!</p>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
+.tg td{border-color:black;border-style:solid;border-width:5px;font-family:Arial, sans-serif;font-size:30px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:5px;font-family:Arial, sans-serif;font-size:30px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax">Class</th>
+    <th class="tg-0lax">Teacher</th>
+    <th class="tg-0lax">Class Grade</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax">{{ value[0]['class'] }}</td>
+    <td class="tg-0lax"> Teacher1 </td>
+    <td class="tg-0lax">{{ value[0]['grade'] }}</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">{{ value[1]['class'] }}</td>
+    <td class="tg-0lax"> Teacher2 </td>
+    <td class="tg-0lax">{{ value[1]['grade'] }}</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">{{ value[2]['class'] }}</td>
+    <td class="tg-0lax"> Teacher3 </td>
+    <td class="tg-0lax">{{ value[2]['grade'] }}</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">{{ value[3]['class'] }}</td>
+    <td class="tg-0lax"> Teacher4 </td>
+    <td class="tg-0lax">{{ value[3]['grade'] }}</td>
+  </tr>
+</tbody>
+</table>
+
+{% endblock %}
