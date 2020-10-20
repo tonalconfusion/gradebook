@@ -71,14 +71,19 @@ def home():
 	if 'loggedin' in session:
 		cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 		cursor.execute("SELECT * FROM students INNER JOIN grades ON students.id = grades.studentid WHERE studentid = %s", (session['id'],))
-		data = cursor.fetchall() 
-		return render_template('home.html', name=session['username'], value=data)
+		data = cursor.fetchall()   
+		class1 = int(data[0]['grade'])
+		class2 = int(data[1]['grade'])
+		class3 = int(data[2]['grade'])
+		class4 = int(data[3]['grade'])
+		GPA = (class1 + class2 + class3 + class4) / 4
+		return render_template('home.html', name=session['username'], value=data, gpa=GPA)
 	else:
 		return redirect(url_for('login'))
 
 @app.route('/teacher_home')
 def teacher_home():
-	if 'loggedin' in session:
+	if 'loggedin' in session:    
 		return render_template('teacher_home.html', name=session['username'])
 	else:
 		return redirect(url_for('teacher_login'))
@@ -100,7 +105,9 @@ def profile():
 		return render_template("profile.html", account=account, username=session['username'])
 	return redirect(url_for('login'))
 
-
+@app.route('/class_ind')
+def class_ind():
+	return 'Inidvidual Class'
 
 
 
