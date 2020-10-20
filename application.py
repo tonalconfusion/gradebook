@@ -107,7 +107,7 @@ def profile():
 
 @app.route('/class_ind')
 def class_ind():
-	return 'Inidvidual Class'
+	return 'Each assignents'
 
 
 
