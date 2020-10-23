@@ -1,0 +1,37 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+
+
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:10;margin:100px auto;}
+.tg td{border-color:black;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:30px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:30px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax">Assignment</th>
+    <th class="tg-0lax">Grade</th>
+    <th class="tg-0lax">Completion</th>
+  </tr>
+</thead>
+<tbody>
+  {%for i in range(0, amount)%}
+    <tr>
+      <td class="tg-0lax">{{ data[i]['assignment_name'] }} </td>
+      <td class="tg-0lax">{{ data[i]['grade'] }} </td>
+      <td class="tg-0lax">{{ data[i]['completion'] }} </td>
+    </tr>
+  {%endfor%}
+</tbody>
+</table>
+{% endblock %}

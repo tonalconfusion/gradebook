@@ -1,4 +1,2 @@
 syntax on
 
-
-colorscheme dester

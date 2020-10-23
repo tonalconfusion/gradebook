@@ -5,9 +5,8 @@
 {% block content %}
 <h2>Home Page</h2>
 <p>Welcome back, {{ name }}!</p>
-<p>Average Grade: {{gpa}}</p>
 <style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;margin:5px auto;}
+.tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
 .tg td{border-color:black;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:30px;
   overflow:hidden;padding:10px 5px;word-break:normal;}
 .tg th{border-color:black;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:30px;
@@ -26,22 +25,22 @@
   <tr>
     <td class="tg-0lax">{{ value[0]['class'] }}</td>
     <td class="tg-0lax"> Teacher1 </td>
-    <td class="tg-0lax">{{ value[0]['grade'] }}</td>
+    <td><a href="{{ url_for('class_grade0') }}">{{ value[0]['grade'] }}</a></td>
   </tr>
   <tr>
     <td class="tg-0lax">{{ value[1]['class'] }}</td>
     <td class="tg-0lax"> Teacher2 </td>
-    <td class="tg-0lax">{{ value[1]['grade'] }}</td>
+    <td><a href="{{ url_for('class_grade1') }}">{{ value[1]['grade'] }}</a></td>
   </tr>
   <tr>
     <td class="tg-0lax">{{ value[2]['class'] }}</td>
     <td class="tg-0lax"> Teacher3 </td>
-    <td class="tg-0lax">{{ value[2]['grade'] }}</td>
+    <td><a href="{{ url_for('class_grade2') }}">{{ value[2]['grade'] }}</a></td>
   </tr>
   <tr>
     <td class="tg-0lax">{{ value[3]['class'] }}</td>
     <td class="tg-0lax"> Teacher4 </td>
-    <td class="tg-0lax">{{ value[3]['grade'] }}</td>
+    <td><a href="{{ url_for('class_grade3') }}">{{ value[3]['grade'] }}</a></td>
   </tr>
 </tbody>
 </table>

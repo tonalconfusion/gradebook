@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
+import mysql.connector
 import re
 
 app = Flask(__name__)
@@ -13,7 +14,6 @@ app.config['MYSQL_HOST'] = 'us-cdbr-east-02.cleardb.com'
 app.config['MYSQL_USER'] = 'bfe1210a3e42e3'
 app.config['MYSQL_PASSWORD'] = '0955563a'
 app.config['MYSQL_DB'] = 'heroku_cfa98b126baf0f6'
-
 # Intialize MySQL
 mysql = MySQL(app)
 
@@ -39,7 +39,7 @@ def login():
 			session['id'] = account['id']
 			session['username'] = account['name']
 			return redirect(url_for("home"))
-		else:	
+		else:
 			msg = 'Incorrect username/password'
 
 
@@ -72,12 +72,17 @@ def home():
 		cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 		cursor.execute("SELECT * FROM students INNER JOIN grades ON students.id = grades.studentid WHERE studentid = %s", (session['id'],))
 		data = cursor.fetchall()   
-		class1 = int(data[0]['grade'])
-		class2 = int(data[1]['grade'])
-		class3 = int(data[2]['grade'])
-		class4 = int(data[3]['grade'])
-		GPA = (class1 + class2 + class3 + class4) / 4
-		return render_template('home.html', name=session['username'], value=data, gpa=GPA)
+		session['class1'] = data[0]['class']
+		session['class2'] = data[1]['class']
+		session['class3'] = data[2]['class']
+		session['class4'] = data[3]['class']
+		cursor.execute("SELECT * FROM assignments RIGHT JOIN grades ON grades.id = assignments.class_id WHERE studentid= %s", (session['id'],))
+		data1 = cursor.fetchall()
+		session['id1'] = data1[0]['id']
+		session['id2'] = data1[1]['id']
+		session['id3'] = data1[2]['id']
+		session['id4'] = data1[3]['id']
+		return render_template('home.html', name=session['username'], value=data)
 	else:
 		return redirect(url_for('login'))
 
@@ -87,7 +92,6 @@ def teacher_home():
 		return render_template('teacher_home.html', name=session['username'])
 	else:
 		return redirect(url_for('teacher_login'))
-
 @app.route('/logout')
 def logout():
 	session.pop('loggedin', None)
@@ -105,10 +109,101 @@ def profile():
 		return render_template("profile.html", account=account, username=session['username'])
 	return redirect(url_for('login'))
 
-@app.route('/class_ind')
-def class_ind():
-	return 'Each assignents'
 
-
-
+@app.route('/class_grades0', methods=['GET', 'POST'])
+def class_grade0():
+	cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+	cursor.execute("SELECT * FROM assignments INNER JOIN grades ON grades.id = assignments.class_id WHERE studentid = %s AND class_id = %s", (session['id'], session.get('id1', None)))
 	
+	data1 = cursor.fetchall()
+
+
+	cursor.execute("SELECT COUNT(*) FROM assignments INNER JOIN grades ON grades.id = assignments.class_id WHERE studentid = %s AND class_id = %s", (session['id'], session.get('id1', None)))
+	amount1 = cursor.fetchall()
+	amount1 = amount1[0]['COUNT(*)']
+
+	def average(x):
+		n=0
+		for i in range(0, x):
+			n += int(data1[i]['grade'])
+		n=n/2
+		return n
+
+	average1 = average(amount1)
+	cursor.execute("UPDATE grades SET grade=%s WHERE id=%s AND studentid=%s", (str(average1), session.get('id1, None'), session['id']))
+	if amount1 >= 1:
+		return render_template("class0.html", data=data1, amount=amount1)
+	else:
+		return "NONE"
+
+@app.route('/class_grades1', methods=['GET', 'POST'])
+def class_grade1():
+	cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+	cursor.execute("SELECT * FROM assignments INNER JOIN grades ON grades.id = assignments.class_id WHERE studentid = %s AND class_id = %s", (session['id'], session.get('id2', None)))
+	data1 = cursor.fetchall()
+
+	cursor.execute("SELECT COUNT(*) FROM assignments INNER JOIN grades ON grades.id = assignments.class_id WHERE studentid = %s AND class_id = %s", (session['id'], session.get('id2', None)))
+	amount1 = cursor.fetchall()
+	amount1 = amount1[0]['COUNT(*)']
+
+	def average(x):
+		n=0
+		for i in range(0, x):
+			n += int(data1[i]['grade'])
+		n=n/2
+		return n
+	average1 = average(amount1)
+	cursor.execute("UPDATE grades SET grade=%s WHERE id=%s AND studentid=%s", (str(average1), session.get('id2, None'), session['id']))
+	if amount1 >= 1:
+		return render_template("class1.html", data=data1, amount=amount1)
+	else:
+		return "NONE"
+
+@app.route('/class_grades2', methods=['GET', 'POST'])
+def class_grade2():
+	cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+	cursor.execute("SELECT * FROM assignments INNER JOIN grades ON grades.id = assignments.class_id WHERE studentid = %s AND class_id = %s", (session['id'], session.get('id3', None)))
+	data1 = cursor.fetchall()
+
+	cursor.execute("SELECT COUNT(*) FROM assignments INNER JOIN grades ON grades.id = assignments.class_id WHERE studentid = %s AND class_id = %s", (session['id'], session.get('id3', None)))
+	amount1 = cursor.fetchall()
+	amount1 = amount1[0]['COUNT(*)']
+	def average(x):
+		n=0
+		for i in range(0, x):
+			n += int(data1[i]['grade'])
+		n=n/2
+		return n
+	average1 = average(amount1)
+	cursor.execute("UPDATE grades SET grade=%s WHERE id=%s AND studentid=%s", (str(average1), session.get('id3, None'), session['id']))
+	if amount1 >= 1:
+		return render_template("class2.html", data=data1, amount=amount1)
+	else:
+		return "NONE"
+
+@app.route('/class_grades3', methods=['GET', 'POST'])
+def class_grade3():
+	cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+	cursor.execute("SELECT * FROM assignments INNER JOIN grades ON grades.id = assignments.class_id WHERE studentid = %s AND class_id = %s", (session['id'], session.get('id4', None)))
+	data1 = cursor.fetchall()
+
+	cursor.execute("SELECT COUNT(*) FROM assignments INNER JOIN grades ON grades.id = assignments.class_id WHERE studentid = %s AND class_id = %s", (session['id'], session.get('id4', None)))
+	amount1 = cursor.fetchall()
+	amount1 = amount1[0]['COUNT(*)']
+	def average(x):
+		n=0
+		for i in range(0, x):
+			n += int(data1[i]['grade'])
+		n=n/2
+		return n
+	average1 = average(amount1)
+	cursor.execute("UPDATE grades SET grade=%s WHERE id=%s AND studentid=%s", (str(average1), session.get('id4, None'), session['id']))
+	if amount1 >= 1:
+		return render_template("class3.html", data=data1, amount=amount1)
+	else:
+		return "NONE"
+
+
