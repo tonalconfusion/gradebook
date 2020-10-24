@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
-import mysql.connector
 import re
 
 app = Flask(__name__)
@@ -114,8 +113,7 @@ def profile():
 def class_grade0():
 	cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 	cursor.execute("SELECT * FROM assignments INNER JOIN grades ON grades.id = assignments.class_id WHERE studentid = %s AND class_id = %s", (session['id'], session.get('id1', None)))
-	
-	data1 = cursor.fetchall()
+	data1 = cursor.fetchall()   
 
 
 	cursor.execute("SELECT COUNT(*) FROM assignments INNER JOIN grades ON grades.id = assignments.class_id WHERE studentid = %s AND class_id = %s", (session['id'], session.get('id1', None)))
@@ -126,11 +124,15 @@ def class_grade0():
 		n=0
 		for i in range(0, x):
 			n += int(data1[i]['grade'])
-		n=n/2
+		n=n/x
 		return n
 
+	db = MySQLdb.connect("us-cdbr-east-02.cleardb.com", "bfe1210a3e42e3", "0955563a", "heroku_cfa98b126baf0f6")
+	cur = db.cursor()
 	average1 = average(amount1)
-	cursor.execute("UPDATE grades SET grade=%s WHERE id=%s AND studentid=%s", (str(average1), session.get('id1, None'), session['id']))
+	cur.execute("UPDATE grades SET grade=%s WHERE id=%s AND studentid=%s", (average1, session.get('id1', None), session['id']))
+	db.commit()
+	print(average1)
 	if amount1 >= 1:
 		return render_template("class0.html", data=data1, amount=amount1)
 	else:
@@ -151,10 +153,13 @@ def class_grade1():
 		n=0
 		for i in range(0, x):
 			n += int(data1[i]['grade'])
-		n=n/2
+		n=n/x
 		return n
+	db = MySQLdb.connect("us-cdbr-east-02.cleardb.com", "bfe1210a3e42e3", "0955563a", "heroku_cfa98b126baf0f6")
+	cur = db.cursor()
 	average1 = average(amount1)
-	cursor.execute("UPDATE grades SET grade=%s WHERE id=%s AND studentid=%s", (str(average1), session.get('id2, None'), session['id']))
+	cur.execute("UPDATE grades SET grade=%s WHERE id=%s AND studentid=%s", (average1, session.get('id2', None), session['id']))
+	db.commit()
 	if amount1 >= 1:
 		return render_template("class1.html", data=data1, amount=amount1)
 	else:
@@ -174,10 +179,13 @@ def class_grade2():
 		n=0
 		for i in range(0, x):
 			n += int(data1[i]['grade'])
-		n=n/2
+		n=n/x
 		return n
+	db = MySQLdb.connect("us-cdbr-east-02.cleardb.com", "bfe1210a3e42e3", "0955563a", "heroku_cfa98b126baf0f6")
+	cur = db.cursor()
 	average1 = average(amount1)
-	cursor.execute("UPDATE grades SET grade=%s WHERE id=%s AND studentid=%s", (str(average1), session.get('id3, None'), session['id']))
+	cur.execute("UPDATE grades SET grade=%s WHERE id=%s AND studentid=%s", (average1, session.get('id3', None), session['id']))
+	db.commit()
 	if amount1 >= 1:
 		return render_template("class2.html", data=data1, amount=amount1)
 	else:
@@ -197,10 +205,13 @@ def class_grade3():
 		n=0
 		for i in range(0, x):
 			n += int(data1[i]['grade'])
-		n=n/2
+		n=n/x
 		return n
+	db = MySQLdb.connect("us-cdbr-east-02.cleardb.com", "bfe1210a3e42e3", "0955563a", "heroku_cfa98b126baf0f6")
+	cur = db.cursor()
 	average1 = average(amount1)
-	cursor.execute("UPDATE grades SET grade=%s WHERE id=%s AND studentid=%s", (str(average1), session.get('id4, None'), session['id']))
+	cur.execute("UPDATE grades SET grade=%s WHERE id=%s AND studentid=%s", (average1, session.get('id4', None), session['id']))
+	db.commit()
 	if amount1 >= 1:
 		return render_template("class3.html", data=data1, amount=amount1)
 	else:
