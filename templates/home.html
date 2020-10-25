@@ -7,9 +7,9 @@
 <p>Welcome back, {{ name }}!</p>
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
-.tg td{border-color:black;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:30px;
+.tg td{border-color:black;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:25px;
   overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:30px;
+.tg th{border-color:black;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:25px;
   font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 .tg .tg-0lax{text-align:left;vertical-align:top}
 </style>
@@ -25,7 +25,7 @@
   <tr>
     <td class="tg-0lax">{{ value[0]['class'] }}</td>
     <td class="tg-0lax"> Teacher1 </td>
-    <td><a href="{{ url_for('class_grade0') }}">{{ value[0]['grade'] }}</a></td>
+    <td class="tg-0lax"><a href="{{ url_for('class_grade0') }}">{{ value[0]['grade'] }}</a></td>
   </tr>
   <tr>
     <td class="tg-0lax">{{ value[1]['class'] }}</td>

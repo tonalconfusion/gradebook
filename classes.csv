@@ -1,0 +1,9 @@
+id, class_id, grade, assignment_name, completion
+11, 5, 93, test1, completed
+12, 5, 90, test2, completed
+13, 6, 91, test1, completed
+14, 6, 80, test2, completed
+15, 7, 79, test1, completed
+16, 7, 88, test2, completed
+17, 8, 83, test1, completed
+18, 8, 100, test2, completed

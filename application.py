@@ -17,6 +17,9 @@ app.config['MYSQL_DB'] = 'heroku_cfa98b126baf0f6'
 mysql = MySQL(app)
 
 
+
+
+
 #redirect to login
 @app.route("/")
 def index():
@@ -75,12 +78,37 @@ def home():
 		session['class2'] = data[1]['class']
 		session['class3'] = data[2]['class']
 		session['class4'] = data[3]['class']
-		cursor.execute("SELECT * FROM assignments RIGHT JOIN grades ON grades.id = assignments.class_id WHERE studentid= %s", (session['id'],))
+		cursor.execute("SELECT class_id FROM assignments RIGHT JOIN grades ON grades.id = assignments.class_id WHERE studentid= %s", (session['id'],))
 		data1 = cursor.fetchall()
-		session['id1'] = data1[0]['id']
-		session['id2'] = data1[1]['id']
-		session['id3'] = data1[2]['id']
-		session['id4'] = data1[3]['id']
+
+		def convert(x):
+			n = []
+			c = 0
+			for i in x:
+				c += 1
+			for i in range(0, c):
+				n.append(x[i]['class_id'])
+			return n
+				
+		o = convert(data1)
+
+		def occurence(x):
+			freq = {}
+			for item in x:
+				if (item in freq):
+					freq[item] += 1
+				else:
+					freq[item] = 1
+			return freq
+
+		n = occurence(list(o))
+		p = list(n.keys())
+
+		session['id1'] = p[0]
+		session['id2'] = p[1]
+		session['id3'] = p[2]
+		session['id4'] = p[3]
+
 		return render_template('home.html', name=session['username'], value=data)
 	else:
 		return redirect(url_for('login'))
@@ -124,7 +152,10 @@ def class_grade0():
 		n=0
 		for i in range(0, x):
 			n += int(data1[i]['grade'])
-		n=n/x
+		if x > 0:
+			n=n/x
+		else:
+			return 0
 		return n
 
 	db = MySQLdb.connect("us-cdbr-east-02.cleardb.com", "bfe1210a3e42e3", "0955563a", "heroku_cfa98b126baf0f6")
@@ -153,7 +184,8 @@ def class_grade1():
 		n=0
 		for i in range(0, x):
 			n += int(data1[i]['grade'])
-		n=n/x
+		if n > 0:
+			n=n/x
 		return n
 	db = MySQLdb.connect("us-cdbr-east-02.cleardb.com", "bfe1210a3e42e3", "0955563a", "heroku_cfa98b126baf0f6")
 	cur = db.cursor()
@@ -179,7 +211,8 @@ def class_grade2():
 		n=0
 		for i in range(0, x):
 			n += int(data1[i]['grade'])
-		n=n/x
+		if x > 0:
+			n=n/x
 		return n
 	db = MySQLdb.connect("us-cdbr-east-02.cleardb.com", "bfe1210a3e42e3", "0955563a", "heroku_cfa98b126baf0f6")
 	cur = db.cursor()
@@ -205,7 +238,8 @@ def class_grade3():
 		n=0
 		for i in range(0, x):
 			n += int(data1[i]['grade'])
-		n=n/x
+		if x > 0:
+			n=n/x
 		return n
 	db = MySQLdb.connect("us-cdbr-east-02.cleardb.com", "bfe1210a3e42e3", "0955563a", "heroku_cfa98b126baf0f6")
 	cur = db.cursor()
