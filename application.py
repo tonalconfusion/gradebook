@@ -16,10 +16,6 @@ app.config['MYSQL_DB'] = 'heroku_cfa98b126baf0f6'
 # Intialize MySQL
 mysql = MySQL(app)
 
-
-
-
-
 #redirect to login
 @app.route("/")
 def index():
@@ -65,8 +61,6 @@ def teacher_login():
 			return redirect(url_for("teacher_home"))
 
 	return render_template('teacher_login.html')
-
-
 
 @app.route('/home')
 def home():
@@ -115,8 +109,20 @@ def home():
 
 @app.route('/teacher_home')
 def teacher_home():
-	if 'loggedin' in session:    
-		return render_template('teacher_home.html', name=session['username'])
+	if 'loggedin' in session:
+		cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+
+		db = MySQLdb.connect("us-cdbr-east-02.cleardb.com", "bfe1210a3e42e3", "0955563a", "heroku_cfa98b126baf0f6")
+		cur = db.cursor()
+		cursor.execute("SELECT * FROM grades INNER JOIN teachers ON teachers.id = grades.subject_id INNER JOIN students ON grades.studentid = students.id WHERE teachers.id=%s", (session['id'],))
+		students1 = cursor.fetchall()
+		cursor.execute("SELECT COUNT(*) FROM grades INNER JOIN teachers ON teachers.id = grades.subject_id INNER JOIN students ON grades.studentid = students.id WHERE teachers.id=%s", (session['id'],))
+		count1 = cursor.fetchall()
+		count1 = count1[0]['COUNT(*)']
+		print(count1)
+		return render_template('teacher_home.html', name=session['username'], students=students1, count=count1)
+
 	else:
 		return redirect(url_for('teacher_login'))
 @app.route('/logout')
