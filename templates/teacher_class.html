@@ -16,17 +16,18 @@
 <table class="tg">
 <thead>
   <tr>
-    <th class="tg-0lax">Student</th>
+    <th class="tg-0lax">Assignment</th>
     <th class="tg-0lax">Grade</th>
-    <th class="tg-0lax">Class</th>
+    <th class="tg-0lax">Completion</th>
   </tr>
 </thead>
 <tbody>
   {%for i in range(0, count)%}
   	<tr>
-    	<td>{{students[i]['students.name']}}</td>
-    	<td><a href="{{ url_for('teacher_assign', id1=students[i]['studentid'], id=students[i]['id']) }}">{{students[i]['grade']}}</a></td>
-    	<td>{{students[i]['class']}}</td>
+    	<td>{{data[i]['assignment_name']}}</td>
+      <td>{{data[i]['assignments.grade']}}</td>
+      <td>{{data[i]['completion']}}</td>
+
   	</tr>
   {%endfor%}
 

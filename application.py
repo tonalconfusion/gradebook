@@ -120,7 +120,9 @@ def teacher_home():
 		cursor.execute("SELECT COUNT(*) FROM grades INNER JOIN teachers ON teachers.id = grades.subject_id INNER JOIN students ON grades.studentid = students.id WHERE teachers.id=%s", (session['id'],))
 		count1 = cursor.fetchall()
 		count1 = count1[0]['COUNT(*)']
-		print(count1)
+		#for i in range(0, count1):
+		#	class_id1 = students1[i]['id']
+		print(students1[1]['id'])
 		return render_template('teacher_home.html', name=session['username'], students=students1, count=count1)
 
 	else:
@@ -131,6 +133,20 @@ def logout():
 	session.pop('id', None)
 	session.pop('username', None)
 	return redirect(url_for('login'))
+
+@app.route('/teacher_assign')
+def teacher_assign():
+	cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+	class_id = request.args.get('id')
+	studentid = request.args.get('id1')
+	cursor.execute("SELECT * FROM grades INNER JOIN teachers ON teachers.id = grades.subject_id INNER JOIN students ON grades.studentid = students.id INNER JOIN assignments ON grades.id = assignments.class_id WHERE studentid=%s AND grades.id=%s", (studentid, class_id))
+	data2 = cursor.fetchall()
+
+	cursor.execute("SELECT COUNT(*) FROM grades INNER JOIN teachers ON teachers.id = grades.subject_id INNER JOIN students ON grades.studentid = students.id INNER JOIN assignments ON grades.id = assignments.class_id WHERE studentid=%s AND grades.id=%s", (studentid, class_id))
+	count = cursor.fetchall()
+	count = count[0]['COUNT(*)']
+	return render_template("teacher_class.html", data=data2, count=count)
+
 
 
 @app.route('/profile')
