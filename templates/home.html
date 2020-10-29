@@ -7,18 +7,18 @@
 <p>Welcome back, {{ name }}!</p>
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
-.tg td{border-color:black;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:25px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:25px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg td{border-color:gray;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:15px;
+  overflow:hidden;padding:10px 30px;word-break:normal;}
+.tg th{border-color:gray;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:15px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;b}
 .tg .tg-0lax{text-align:left;vertical-align:top}
 </style>
 <table class="tg">
 <thead>
   <tr>
-    <th class="tg-0lax">Class</th>
-    <th class="tg-0lax">Teacher</th>
-    <th class="tg-0lax">Class Grade</th>
+    <th bgcolor='#CA0000 '><b>Class</b></th>
+    <th bgcolor='#CA0000 '><b>Teacher</b></th>
+    <th bgcolor='#CA0000 '><b>Class Grade</b></th>
   </tr>
 </thead>
 <tbody>
@@ -28,9 +28,9 @@
     <td class="tg-0lax"><a href="{{ url_for('class_grade0') }}">{{ value[0]['grade'] }}</a></td>
   </tr>
   <tr>
-    <td class="tg-0lax">{{ value[1]['class'] }}</td>
-    <td class="tg-0lax"> Teacher2 </td>
-    <td><a href="{{ url_for('class_grade1') }}">{{ value[1]['grade'] }}</a></td>
+    <td bgcolor='#E9E9E9 '>{{ value[1]['class'] }}</td>
+    <td bgcolor='#E9E9E9 '> Teacher2 </td>
+    <td bgcolor='#E9E9E9 '><a href="{{ url_for('class_grade1') }}">{{ value[1]['grade'] }}</a></td>
   </tr>
   <tr>
     <td class="tg-0lax">{{ value[2]['class'] }}</td>
@@ -38,9 +38,9 @@
     <td><a href="{{ url_for('class_grade2') }}">{{ value[2]['grade'] }}</a></td>
   </tr>
   <tr>
-    <td class="tg-0lax">{{ value[3]['class'] }}</td>
-    <td class="tg-0lax"> Teacher4 </td>
-    <td><a href="{{ url_for('class_grade3') }}">{{ value[3]['grade'] }}</a></td>
+    <td bgcolor='#E9E9E9 '>{{ value[3]['class'] }}</td>
+    <td bgcolor='#E9E9E9 '> Teacher4 </td>
+    <td bgcolor='#E9E9E9 '><a href="{{ url_for('class_grade3') }}">{{ value[3]['grade'] }}</a></td>
   </tr>
 </tbody>
 </table>
