@@ -148,6 +148,15 @@ def teacher_assign():
 	return render_template("teacher_class.html", data=data2, count=count)
 
 
+@app.route('/add_assignment', methods=['GET', 'POST'])
+def add_assignment():
+	db = MySQLdb.connect("us-cdbr-east-02.cleardb.com", "bfe1210a3e42e3", "0955563a", "heroku_cfa98b126baf0f6")
+	cur = db.cursor()
+	if request.method == "POST" and 'aname' in request.form:
+		aname = request.form['aname']
+		
+	return render_template('add_assignment.html')
+
 
 @app.route('/profile')
 def profile():

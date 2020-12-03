@@ -7,18 +7,18 @@
 <p>Youre Students: </p>
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
-.tg td{border-color:black;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:25px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:25px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg td{border-color:gray;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:15px;
+  overflow:hidden;padding:10px 30px;word-break:normal;}
+.tg th{border-color:gray;border-style:solid;border-width:2px;font-family:Arial, sans-serif;font-size:15px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;b}
 .tg .tg-0lax{text-align:left;vertical-align:top}
 </style>
 <table class="tg">
 <thead>
   <tr>
-    <th class="tg-0lax">Student</th>
-    <th class="tg-0lax">Grade</th>
-    <th class="tg-0lax">Class</th>
+    <th bgcolor='#CA0000 '>Student</th>
+    <th bgcolor='#CA0000 '>Grade</th>
+    <th bgcolor='#CA0000 '>Class</th>
   </tr>
 </thead>
 <tbody>
@@ -32,5 +32,7 @@
 
 </tbody>
 </table>
+
+<h1><a href="{{ url_for('add_assignment') }}">Add Assignment</a></h1>
 
 {% endblock %}
